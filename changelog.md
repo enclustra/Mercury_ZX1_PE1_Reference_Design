@@ -8,3 +8,9 @@
 * Versioning now includes Xilinx tool version
 * Changed VSEL A voltage to 2.5V from previously 1.8V
 * Doc: QSPI flash programming with Enclustra MCT refers to the correct boot mode now
+## 2020.2_v1.1.1
+* Doc: Fix incompatible project name suggestion including a '+'
+* Doc: Refer to system instead of application for creating boot image and program flash
+* Doc: Updates in troubleshoot section and workarounds
+* Doc: Minor optimizations
+* Doc: Improve MCT instructions
