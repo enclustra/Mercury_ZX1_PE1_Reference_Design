@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------------------------------
--- Copyright (c) 2021 by Enclustra GmbH, Switzerland.
+-- Copyright (c) 2022 by Enclustra GmbH, Switzerland.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy of
 -- this hardware, software, firmware, and associated documentation files (the
@@ -55,7 +55,7 @@ entity Mercury_ZX1_PE1 is
     DDR_dqs_n                      : inout  std_logic_vector(3 downto 0);
     DDR_dqs_p                      : inout  std_logic_vector(3 downto 0);
     
-    -- Anios_A
+    -- Anios A
     IOA_D0_P                       : inout   std_logic;
     IOA_D1_N                       : inout   std_logic;
     IOA_D2_P                       : inout   std_logic;
@@ -83,7 +83,7 @@ entity Mercury_ZX1_PE1 is
     IOA_CLK1_N                     : inout   std_logic;
     IOA_CLK0_P                     : inout   std_logic;
     
-    -- Anios_B
+    -- Anios B
     IOB_D0_P                       : inout   std_logic;
     IOB_D1_N                       : inout   std_logic;
     IOB_D2_P                       : inout   std_logic;
@@ -109,7 +109,7 @@ entity Mercury_ZX1_PE1 is
     IOB_CLK1_N                     : inout   std_logic;
     IOB_CLK0_P                     : inout   std_logic;
     
-    -- FMC0
+    -- FMC LPC Connector 0
     FMC_LA02_N                     : inout   std_logic;
     FMC_LA02_P                     : inout   std_logic;
     FMC_LA03_N                     : inout   std_logic;
@@ -183,21 +183,51 @@ entity Mercury_ZX1_PE1 is
     FMC_CLK1_M2C_N                 : inout   std_logic;
     FMC_CLK1_M2C_P                 : inout   std_logic;
     
-    -- I2C_PL
+    -- I2C
     I2C_INT_N                      : in      std_logic;
-    I2C_SCL_PL                     : inout   std_logic;
-    I2C_SDA_PL                     : inout   std_logic;
+    I2C_SCL                        : inout   std_logic;
+    I2C_SDA                        : inout   std_logic;
+    
+    -- IOC
+    IOC_D0_P                       : inout   std_logic; -- Available on B111, IO modules
+    IOC_D1_N                       : inout   std_logic; -- Available on B111, IO modules
+    IOC_D2_P                       : inout   std_logic; -- Only available on B111 modules
+    IOC_D3_N                       : inout   std_logic; -- Only available on B111 modules
+    IOC_D4_P                       : inout   std_logic; -- Available on B111, IO modules
+    IOC_D5_N                       : inout   std_logic; -- Available on B111, IO modules
+    IOC_D6_P                       : inout   std_logic; -- Only available on B111 modules
+    IOC_D7_N                       : inout   std_logic; -- Only available on B111 modules
+    
+    -- IOD
+    IOD_D0_P                       : inout   std_logic; -- Available on B111, IO modules
+    IOD_D1_N                       : inout   std_logic; -- Available on B111, IO modules
+    IOD_D2_P                       : inout   std_logic; -- Only available on B111 modules
+    IOD_D3_N                       : inout   std_logic; -- Only available on B111 modules
+    IOD_D4_P                       : inout   std_logic; -- Available on B111, IO modules
+    IOD_D5_N                       : inout   std_logic; -- Available on B111, IO modules
+    IOD_D6_P                       : inout   std_logic; -- Only available on B111 modules
+    IOD_D7_N                       : inout   std_logic; -- Only available on B111 modules
+    
+    -- IOE
+    IOE_D0_LED0_N                  : inout   std_logic; -- Available on B111, IO modules
+    IOE_D1_LED1_N                  : inout   std_logic; -- Available on B111, IO modules
+    IOE_D2_LED2_N                  : inout   std_logic; -- Available on B111, IO modules
+    IOE_D3_LED3_N                  : inout   std_logic; -- Available on B111, IO modules
     
     -- LED
     FPGA_LED0_N                    : out     std_logic;
     FPGA_LED1_N                    : out     std_logic;
     FPGA_LED2_N                    : out     std_logic;
     
-    -- PL_200_MHz_Oscillator
+    -- PE1 SI5338 CLK3
+    OSC_N                          : in      std_logic;
+    OSC_P                          : in      std_logic;
+    
+    -- PL 200 MHz Oscillator
     CLK200_N                       : in      std_logic;
     CLK200_P                       : in      std_logic;
     
-    -- PL_DDR3_Memory
+    -- SDRAM
     DDR3_VSEL                      : inout   std_logic;
     DDR3PL_WE_N                    : out     std_logic;
     DDR3PL_CAS_N                   : out     std_logic;
@@ -214,14 +244,14 @@ entity Mercury_ZX1_PE1 is
     DDR3PL_DQS_N                   : inout   std_logic_vector(1 downto 0);
     DDR3PL_DQS_P                   : inout   std_logic_vector(1 downto 0);
     
-    -- PL_Fast_Ethernet_1
+    -- PL Fast Ethernet 1
     ETH1_CLK                       : out     std_logic;
     ETH1_MDC                       : out     std_logic;
     ETH1_MDIO                      : inout   std_logic;
     ETH1_RESET_N                   : out     std_logic;
     ETH1_INT_N_PWDN_N              : inout   std_logic;
     
-    -- PL_Fast_Ethernet_1A
+    -- PL Fast Ethernet 1A
     ETH1A_COL_PL                   : in      std_logic;
     ETH1A_RXDV                     : in      std_logic;
     ETH1A_RXER                     : in      std_logic;
@@ -233,7 +263,7 @@ entity Mercury_ZX1_PE1 is
     ETH1A_RXD                      : in      std_logic_vector(3 downto 0);
     ETH1A_TXD                      : out     std_logic_vector(3 downto 0);
     
-    -- PL_Fast_Ethernet_1B
+    -- PL Fast Ethernet 1B
     ETH1B_COL_PL                   : in      std_logic;
     ETH1B_RXDV                     : in      std_logic;
     ETH1B_RXER                     : in      std_logic;
@@ -245,7 +275,7 @@ entity Mercury_ZX1_PE1 is
     ETH1B_RXD                      : in      std_logic_vector(3 downto 0);
     ETH1B_TXD                      : out     std_logic_vector(3 downto 0);
     
-    -- PL_Gig_Ethernet
+    -- PL Gig Ethernet
     ETH0_INT_N_PL                  : in      std_logic
   );
 end Mercury_ZX1_PE1;
@@ -261,8 +291,6 @@ architecture rtl of Mercury_ZX1_PE1 is
       Clk50               : out    std_logic;
       Clk25               : out    std_logic;
       Rst_N               : out    std_logic;
-      IRQ0                : in     std_logic;
-      IRQ1                : in     std_logic;
       FIXED_IO_mio        : inout  std_logic_vector(53 downto 0);
       FIXED_IO_ddr_vrn    : inout  std_logic;
       FIXED_IO_ddr_vrp    : inout  std_logic;
@@ -284,6 +312,7 @@ architecture rtl of Mercury_ZX1_PE1 is
       DDR_dq              : inout  std_logic_vector(31 downto 0);
       DDR_dqs_n           : inout  std_logic_vector(3 downto 0);
       DDR_dqs_p           : inout  std_logic_vector(3 downto 0);
+      IRQ_I2C             : in     std_logic;
       IIC_sda_i           : in     std_logic;
       IIC_sda_o           : out    std_logic;
       IIC_sda_t           : out    std_logic;
@@ -306,7 +335,8 @@ architecture rtl of Mercury_ZX1_PE1 is
       DDR3_ck_n           : out    std_logic_vector(0 downto 0);
       DDR3_cke            : out    std_logic_vector(0 downto 0);
       DDR3_dm             : out    std_logic_vector(1 downto 0);
-      DDR3_odt            : out    std_logic_vector(0 downto 0)
+      DDR3_odt            : out    std_logic_vector(0 downto 0);
+      IRQ_ETH0            : in     std_logic
     );
     
   end component Mercury_ZX1;
@@ -318,8 +348,7 @@ architecture rtl of Mercury_ZX1_PE1 is
   signal Clk50            : std_logic;
   signal Clk25            : std_logic;
   signal Rst_N            : std_logic;
-  signal IRQ0             : std_logic;
-  signal IRQ1             : std_logic;
+  signal IRQ_I2C          : std_logic;
   signal IIC_sda_i        : std_logic;
   signal IIC_sda_o        : std_logic;
   signal IIC_sda_t        : std_logic;
@@ -327,6 +356,7 @@ architecture rtl of Mercury_ZX1_PE1 is
   signal IIC_scl_o        : std_logic;
   signal IIC_scl_t        : std_logic;
   signal LED_N            : std_logic_vector(1 downto 0);
+  signal IRQ_ETH0         : std_logic;
   signal LedCount         : unsigned(23 downto 0);
 
 begin
@@ -340,8 +370,6 @@ begin
       Clk50                => Clk50,
       Clk25                => Clk25,
       Rst_N                => Rst_N,
-      IRQ0                 => IRQ0,
-      IRQ1                 => IRQ1,
       FIXED_IO_mio         => FIXED_IO_mio,
       FIXED_IO_ddr_vrn     => FIXED_IO_ddr_vrn,
       FIXED_IO_ddr_vrp     => FIXED_IO_ddr_vrp,
@@ -363,6 +391,7 @@ begin
       DDR_dq               => DDR_dq,
       DDR_dqs_n            => DDR_dqs_n,
       DDR_dqs_p            => DDR_dqs_p,
+      IRQ_I2C              => IRQ_I2C,
       IIC_sda_i            => IIC_sda_i,
       IIC_sda_o            => IIC_sda_o,
       IIC_sda_t            => IIC_sda_t,
@@ -385,14 +414,16 @@ begin
       DDR3_ck_n            => DDR3PL_CK_N,
       DDR3_cke             => DDR3PL_CKE,
       DDR3_dm              => DDR3PL_DM,
-      DDR3_odt             => DDR3PL_ODT
+      DDR3_odt             => DDR3PL_ODT,
+      IRQ_ETH0             => IRQ_ETH0
     );
   
-  I2C_SDA_PL <= IIC_sda_o when IIC_sda_t = '0' else 'Z';
-  IIC_sda_i <= I2C_SDA_PL;
-  I2C_SCL_PL <= IIC_scl_o when IIC_scl_t = '0' else 'Z';
-  IIC_scl_i <= I2C_SCL_PL;
-  IRQ0 <= not I2C_INT_N;
+  IRQ_I2C <= not I2C_INT_N;
+  I2C_SDA <= IIC_sda_o when IIC_sda_t = '0' else 'Z';
+  IIC_sda_i <= I2C_SDA;
+  I2C_SCL <= IIC_scl_o when IIC_scl_t = '0' else 'Z';
+  IIC_scl_i <= I2C_SCL;
+  
   process (Clk50)
   begin
     if rising_edge (Clk50) then
@@ -406,8 +437,11 @@ begin
   FPGA_LED0_N <= '0' when LedCount(LedCount'high) = '0' else 'Z';
   FPGA_LED1_N <= '0' when LED_N(0) = '0' else 'Z';
   FPGA_LED2_N <= '0' when LED_N(1) = '0' else 'Z';
+  
   DDR3_VSEL <= 'Z';
+  
   ETH1_CLK <= Clk25;
-  IRQ1 <= not ETH0_INT_N_PL;
-
+  
+  IRQ_ETH0 <= not ETH0_INT_N_PL;
+  
 end rtl;

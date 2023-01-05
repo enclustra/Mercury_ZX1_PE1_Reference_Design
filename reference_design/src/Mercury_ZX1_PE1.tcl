@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------------
-# Copyright (c) 2021 by Enclustra GmbH, Switzerland.
+# Copyright (c) 2022 by Enclustra GmbH, Switzerland.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this hardware, software, firmware, and associated documentation files (the
@@ -28,7 +28,7 @@ set_property BITSTREAM.CONFIG.OVERTEMPPOWERDOWN ENABLE [current_design]
 set_property BITSTREAM.CONFIG.UNUSEDPIN PULLNONE [current_design]
 # ----------------------------------------------------------------------------------
 
-# Anios_A
+# Anios A
 set_property -dict {PACKAGE_PIN AF19  IOSTANDARD LVCMOS25  } [get_ports {IOA_D0_P}]
 set_property -dict {PACKAGE_PIN AF20  IOSTANDARD LVCMOS25  } [get_ports {IOA_D1_N}]
 set_property -dict {PACKAGE_PIN AE18  IOSTANDARD LVCMOS25  } [get_ports {IOA_D2_P}]
@@ -56,7 +56,7 @@ set_property -dict {PACKAGE_PIN AD24  IOSTANDARD LVCMOS25  } [get_ports {IOA_D23
 set_property -dict {PACKAGE_PIN AC22  IOSTANDARD LVCMOS25  } [get_ports {IOA_CLK1_N}]
 set_property -dict {PACKAGE_PIN AC21  IOSTANDARD LVCMOS25  } [get_ports {IOA_CLK0_P}]
 
-# Anios_B
+# Anios B
 set_property -dict {PACKAGE_PIN AA19  IOSTANDARD LVCMOS25  } [get_ports {IOB_D0_P}]
 set_property -dict {PACKAGE_PIN AB19  IOSTANDARD LVCMOS25  } [get_ports {IOB_D1_N}]
 set_property -dict {PACKAGE_PIN AC18  IOSTANDARD LVCMOS25  } [get_ports {IOB_D2_P}]
@@ -82,7 +82,7 @@ set_property -dict {PACKAGE_PIN Y11   IOSTANDARD LVCMOS25  } [get_ports {IOB_D23
 set_property -dict {PACKAGE_PIN AD21  IOSTANDARD LVCMOS25  } [get_ports {IOB_CLK1_N}]
 set_property -dict {PACKAGE_PIN AD20  IOSTANDARD LVCMOS25  } [get_ports {IOB_CLK0_P}]
 
-# FMC0
+# FMC LPC Connector 0
 set_property -dict {PACKAGE_PIN A2    IOSTANDARD LVCMOS18  } [get_ports {FMC_LA02_N}]
 set_property -dict {PACKAGE_PIN B2    IOSTANDARD LVCMOS18  } [get_ports {FMC_LA02_P}]
 set_property -dict {PACKAGE_PIN A5    IOSTANDARD LVCMOS18  } [get_ports {FMC_LA03_N}]
@@ -156,21 +156,55 @@ set_property -dict {PACKAGE_PIN G7    IOSTANDARD LVCMOS18  } [get_ports {FMC_CLK
 set_property -dict {PACKAGE_PIN M5    IOSTANDARD LVCMOS18  } [get_ports {FMC_CLK1_M2C_N}]
 set_property -dict {PACKAGE_PIN M6    IOSTANDARD LVCMOS18  } [get_ports {FMC_CLK1_M2C_P}]
 
-# I2C_PL
+# I2C
 set_property -dict {PACKAGE_PIN K10   IOSTANDARD LVCMOS18  } [get_ports {I2C_INT_N}]
-set_property -dict {PACKAGE_PIN W13   IOSTANDARD LVCMOS25  } [get_ports {I2C_SCL_PL}]
-set_property -dict {PACKAGE_PIN Y13   IOSTANDARD LVCMOS25  } [get_ports {I2C_SDA_PL}]
+set_property -dict {PACKAGE_PIN W13   IOSTANDARD LVCMOS25  } [get_ports {I2C_SCL}]
+set_property -dict {PACKAGE_PIN Y13   IOSTANDARD LVCMOS25  } [get_ports {I2C_SDA}]
+
+# IOC
+if {$MGT_routing == "B111"} {
+}
+if {$MGT_routing == "IO"} {
+  set_property -dict {PACKAGE_PIN K8    IOSTANDARD LVCMOS18  } [get_ports {IOC_D0_P}]
+  set_property -dict {PACKAGE_PIN K7    IOSTANDARD LVCMOS18  } [get_ports {IOC_D1_N}]
+  set_property -dict {PACKAGE_PIN N7    IOSTANDARD LVCMOS18  } [get_ports {IOC_D4_P}]
+  set_property -dict {PACKAGE_PIN N6    IOSTANDARD LVCMOS18  } [get_ports {IOC_D5_N}]
+}
+
+# IOD
+if {$MGT_routing == "B111"} {
+}
+if {$MGT_routing == "IO"} {
+  set_property -dict {PACKAGE_PIN M8    IOSTANDARD LVCMOS18  } [get_ports {IOD_D0_P}]
+  set_property -dict {PACKAGE_PIN L8    IOSTANDARD LVCMOS18  } [get_ports {IOD_D1_N}]
+  set_property -dict {PACKAGE_PIN K6    IOSTANDARD LVCMOS18  } [get_ports {IOD_D4_P}]
+  set_property -dict {PACKAGE_PIN J6    IOSTANDARD LVCMOS18  } [get_ports {IOD_D5_N}]
+}
+
+# IOE
+if {$MGT_routing == "B111"} {
+}
+if {$MGT_routing == "IO"} {
+  set_property -dict {PACKAGE_PIN J8    IOSTANDARD LVCMOS18  } [get_ports {IOE_D0_LED0_N}]
+  set_property -dict {PACKAGE_PIN H8    IOSTANDARD LVCMOS18  } [get_ports {IOE_D1_LED1_N}]
+  set_property -dict {PACKAGE_PIN M7    IOSTANDARD LVCMOS18  } [get_ports {IOE_D2_LED2_N}]
+  set_property -dict {PACKAGE_PIN L7    IOSTANDARD LVCMOS18  } [get_ports {IOE_D3_LED3_N}]
+}
 
 # LED
 set_property -dict {PACKAGE_PIN H7    IOSTANDARD LVCMOS18  } [get_ports {FPGA_LED0_N}]
 set_property -dict {PACKAGE_PIN H6    IOSTANDARD LVCMOS18  } [get_ports {FPGA_LED1_N}]
 set_property -dict {PACKAGE_PIN H9    IOSTANDARD LVCMOS18  } [get_ports {FPGA_LED2_N}]
 
-# PL_200_MHz_Oscillator
+# PE1 SI5338 CLK3
+set_property -dict {PACKAGE_PIN AC24  IOSTANDARD LVCMOS25  } [get_ports {OSC_N}]
+set_property -dict {PACKAGE_PIN AC23  IOSTANDARD LVCMOS25  } [get_ports {OSC_P}]
+
+# PL 200 MHz Oscillator
 set_property -dict {PACKAGE_PIN L4    IOSTANDARD LVDS      } [get_ports {CLK200_N}]
 set_property -dict {PACKAGE_PIN L5    IOSTANDARD LVDS      } [get_ports {CLK200_P}]
 
-# PL_DDR3_Memory
+# SDRAM
 set_property -dict {PACKAGE_PIN J14   IOSTANDARD SSTL15    } [get_ports {DDR3PL_BA[0]}]
 set_property -dict {PACKAGE_PIN D16   IOSTANDARD SSTL15    } [get_ports {DDR3PL_BA[1]}]
 set_property -dict {PACKAGE_PIN H14   IOSTANDARD SSTL15    } [get_ports {DDR3PL_BA[2]}]
@@ -220,14 +254,14 @@ set_property -dict {PACKAGE_PIN A15   IOSTANDARD DIFF_SSTL15_T_DCI} [get_ports {
 set_property -dict {PACKAGE_PIN G10   IOSTANDARD DIFF_SSTL15_T_DCI} [get_ports {DDR3PL_DQS_P[1]}]
 set_property -dict {PACKAGE_PIN G9    IOSTANDARD LVCMOS18  } [get_ports {DDR3PL_RST_N}]
 
-# PL_Fast_Ethernet_1
+# PL Fast Ethernet 1
 set_property -dict {PACKAGE_PIN W14   IOSTANDARD LVCMOS25  } [get_ports {ETH1_CLK}]
 set_property -dict {PACKAGE_PIN AD14  IOSTANDARD LVCMOS25  } [get_ports {ETH1_MDC}]
 set_property -dict {PACKAGE_PIN AD11  IOSTANDARD LVCMOS25  } [get_ports {ETH1_MDIO}]
 set_property -dict {PACKAGE_PIN AF14  IOSTANDARD LVCMOS25  } [get_ports {ETH1_RESET_N}]
 set_property -dict {PACKAGE_PIN W17   IOSTANDARD LVCMOS25  } [get_ports {ETH1_INT_N_PWDN_N}]
 
-# PL_Fast_Ethernet_1A
+# PL Fast Ethernet 1A
 set_property -dict {PACKAGE_PIN J11   IOSTANDARD LVCMOS18  } [get_ports {ETH1A_COL_PL}]
 set_property -dict {PACKAGE_PIN AE12  IOSTANDARD LVCMOS25  } [get_ports {ETH1A_RXD[0]}]
 set_property -dict {PACKAGE_PIN AF12  IOSTANDARD LVCMOS25  } [get_ports {ETH1A_RXD[1]}]
@@ -245,7 +279,7 @@ set_property -dict {PACKAGE_PIN AC12  IOSTANDARD LVCMOS25  } [get_ports {ETH1A_T
 set_property -dict {PACKAGE_PIN G6    IOSTANDARD LVCMOS18  } [get_ports {ETH1A_CRS_PL}]
 set_property -dict {PACKAGE_PIN J10   IOSTANDARD LVCMOS18  } [get_ports {ETH1A_LED_PL_N}]
 
-# PL_Fast_Ethernet_1B
+# PL Fast Ethernet 1B
 set_property -dict {PACKAGE_PIN H11   IOSTANDARD LVCMOS18  } [get_ports {ETH1B_COL_PL}]
 set_property -dict {PACKAGE_PIN AF15  IOSTANDARD LVCMOS25  } [get_ports {ETH1B_RXD[0]}]
 set_property -dict {PACKAGE_PIN AE15  IOSTANDARD LVCMOS25  } [get_ports {ETH1B_RXD[1]}]
@@ -263,5 +297,5 @@ set_property -dict {PACKAGE_PIN AB15  IOSTANDARD LVCMOS25  } [get_ports {ETH1B_T
 set_property -dict {PACKAGE_PIN G5    IOSTANDARD LVCMOS18  } [get_ports {ETH1B_CRS_PL}]
 set_property -dict {PACKAGE_PIN J9    IOSTANDARD LVCMOS18  } [get_ports {ETH1B_LED_PL_N}]
 
-# PL_Gig_Ethernet
+# PL Gig Ethernet
 set_property -dict {PACKAGE_PIN K11   IOSTANDARD LVCMOS18  } [get_ports {ETH0_INT_N_PL}]
