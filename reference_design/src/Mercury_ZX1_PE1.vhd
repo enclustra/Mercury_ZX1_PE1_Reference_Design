@@ -1,5 +1,5 @@
----------------------------------------------------------------------------------------------------
--- Copyright (c) 2022 by Enclustra GmbH, Switzerland.
+----------------------------------------------------------------------------------------------------
+-- Copyright (c) 2024 by Enclustra GmbH, Switzerland.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy of
 -- this hardware, software, firmware, and associated documentation files (the
@@ -17,43 +17,47 @@
 -- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 -- OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 -- PRODUCT OR THE USE OR OTHER DEALINGS IN THE PRODUCT.
----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 -- libraries
----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
----------------------------------------------------------------------------------------------------
+library unisim;
+use unisim.vcomponents.all;
+
+----------------------------------------------------------------------------------------------------
 -- entity declaration
----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 entity Mercury_ZX1_PE1 is
   
   port (
+    
     -- PS MIO Pins
-    FIXED_IO_mio                   : inout  std_logic_vector(53 downto 0);
-    FIXED_IO_ddr_vrn               : inout  std_logic;
-    FIXED_IO_ddr_vrp               : inout  std_logic;
-    FIXED_IO_ps_srstb              : inout  std_logic;
-    FIXED_IO_ps_clk                : inout  std_logic;
-    FIXED_IO_ps_porb               : inout  std_logic;
-    DDR_cas_n                      : inout  std_logic;
-    DDR_cke                        : inout  std_logic;
-    DDR_ck_n                       : inout  std_logic;
-    DDR_ck_p                       : inout  std_logic;
-    DDR_cs_n                       : inout  std_logic;
-    DDR_reset_n                    : inout  std_logic;
-    DDR_odt                        : inout  std_logic;
-    DDR_ras_n                      : inout  std_logic;
-    DDR_we_n                       : inout  std_logic;
-    DDR_ba                         : inout  std_logic_vector(2 downto 0);
-    DDR_addr                       : inout  std_logic_vector(14 downto 0);
-    DDR_dm                         : inout  std_logic_vector(3 downto 0);
-    DDR_dq                         : inout  std_logic_vector(31 downto 0);
-    DDR_dqs_n                      : inout  std_logic_vector(3 downto 0);
-    DDR_dqs_p                      : inout  std_logic_vector(3 downto 0);
+    FIXED_IO_mio                   : inout   std_logic_vector(53 downto 0);
+    FIXED_IO_ddr_vrn               : inout   std_logic;
+    FIXED_IO_ddr_vrp               : inout   std_logic;
+    FIXED_IO_ps_srstb              : inout   std_logic;
+    FIXED_IO_ps_clk                : inout   std_logic;
+    FIXED_IO_ps_porb               : inout   std_logic;
+    DDR_cas_n                      : inout   std_logic;
+    DDR_cke                        : inout   std_logic;
+    DDR_ck_n                       : inout   std_logic;
+    DDR_ck_p                       : inout   std_logic;
+    DDR_cs_n                       : inout   std_logic;
+    DDR_reset_n                    : inout   std_logic;
+    DDR_odt                        : inout   std_logic;
+    DDR_ras_n                      : inout   std_logic;
+    DDR_we_n                       : inout   std_logic;
+    DDR_ba                         : inout   std_logic_vector(2 downto 0);
+    DDR_addr                       : inout   std_logic_vector(14 downto 0);
+    DDR_dm                         : inout   std_logic_vector(3 downto 0);
+    DDR_dq                         : inout   std_logic_vector(31 downto 0);
+    DDR_dqs_n                      : inout   std_logic_vector(3 downto 0);
+    DDR_dqs_p                      : inout   std_logic_vector(3 downto 0);
     
     -- Anios A
     IOA_D0_P                       : inout   std_logic;
@@ -189,30 +193,30 @@ entity Mercury_ZX1_PE1 is
     I2C_SDA                        : inout   std_logic;
     
     -- IOC
-    IOC_D0_P                       : inout   std_logic; -- Available on B111, IO modules
-    IOC_D1_N                       : inout   std_logic; -- Available on B111, IO modules
+    IOC_D0_P                       : inout   std_logic; -- Available on B111, No_MGT_routing modules
+    IOC_D1_N                       : inout   std_logic; -- Available on B111, No_MGT_routing modules
     IOC_D2_P                       : inout   std_logic; -- Only available on B111 modules
     IOC_D3_N                       : inout   std_logic; -- Only available on B111 modules
-    IOC_D4_P                       : inout   std_logic; -- Available on B111, IO modules
-    IOC_D5_N                       : inout   std_logic; -- Available on B111, IO modules
+    IOC_D4_P                       : inout   std_logic; -- Available on B111, No_MGT_routing modules
+    IOC_D5_N                       : inout   std_logic; -- Available on B111, No_MGT_routing modules
     IOC_D6_P                       : inout   std_logic; -- Only available on B111 modules
     IOC_D7_N                       : inout   std_logic; -- Only available on B111 modules
     
     -- IOD
-    IOD_D0_P                       : inout   std_logic; -- Available on B111, IO modules
-    IOD_D1_N                       : inout   std_logic; -- Available on B111, IO modules
+    IOD_D0_P                       : inout   std_logic; -- Available on B111, No_MGT_routing modules
+    IOD_D1_N                       : inout   std_logic; -- Available on B111, No_MGT_routing modules
     IOD_D2_P                       : inout   std_logic; -- Only available on B111 modules
     IOD_D3_N                       : inout   std_logic; -- Only available on B111 modules
-    IOD_D4_P                       : inout   std_logic; -- Available on B111, IO modules
-    IOD_D5_N                       : inout   std_logic; -- Available on B111, IO modules
+    IOD_D4_P                       : inout   std_logic; -- Available on B111, No_MGT_routing modules
+    IOD_D5_N                       : inout   std_logic; -- Available on B111, No_MGT_routing modules
     IOD_D6_P                       : inout   std_logic; -- Only available on B111 modules
     IOD_D7_N                       : inout   std_logic; -- Only available on B111 modules
     
-    -- IOE
-    IOE_D0_LED0_N                  : inout   std_logic; -- Available on B111, IO modules
-    IOE_D1_LED1_N                  : inout   std_logic; -- Available on B111, IO modules
-    IOE_D2_LED2_N                  : inout   std_logic; -- Available on B111, IO modules
-    IOE_D3_LED3_N                  : inout   std_logic; -- Available on B111, IO modules
+    -- IOE User LEDs
+    IOE_D0_LED0_N                  : inout   std_logic; -- Available on B111, No_MGT_routing modules
+    IOE_D1_LED1_N                  : inout   std_logic; -- Available on B111, No_MGT_routing modules
+    IOE_D2_LED2_N                  : inout   std_logic; -- Available on B111, No_MGT_routing modules
+    IOE_D3_LED3_N                  : inout   std_logic; -- Available on B111, No_MGT_routing modules
     
     -- LED
     FPGA_LED0_N                    : out     std_logic;
@@ -282,9 +286,9 @@ end Mercury_ZX1_PE1;
 
 architecture rtl of Mercury_ZX1_PE1 is
 
-  ---------------------------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------------------------------
   -- component declarations
-  ---------------------------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------------------------------
   component Mercury_ZX1 is
     port (
       Clk100              : out    std_logic;
@@ -340,10 +344,18 @@ architecture rtl of Mercury_ZX1_PE1 is
     );
     
   end component Mercury_ZX1;
+  component IBUFDS is
+      port (
+        O : out STD_LOGIC;
+        I : in STD_LOGIC;
+        IB : in STD_LOGIC
+      );
+    end component IBUFDS;
+  
 
-  ---------------------------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------------------------------
   -- signal declarations
-  ---------------------------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------------------------------
   signal Clk100           : std_logic;
   signal Clk50            : std_logic;
   signal Clk25            : std_logic;
@@ -358,12 +370,16 @@ architecture rtl of Mercury_ZX1_PE1 is
   signal LED_N            : std_logic_vector(1 downto 0);
   signal IRQ_ETH0         : std_logic;
   signal LedCount         : unsigned(23 downto 0);
+  
+  ----------------------------------------------------------------------------------------------------
+  -- attribute declarations
+  ----------------------------------------------------------------------------------------------------
 
 begin
   
-  ---------------------------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------------------------------
   -- processor system instance
-  ---------------------------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------------------------------
   Mercury_ZX1_i: component Mercury_ZX1
     port map (
       Clk100               => Clk100,
@@ -437,6 +453,13 @@ begin
   FPGA_LED0_N <= '0' when LedCount(LedCount'high) = '0' else 'Z';
   FPGA_LED1_N <= '0' when LED_N(0) = '0' else 'Z';
   FPGA_LED2_N <= '0' when LED_N(1) = '0' else 'Z';
+  
+  OSC_buf: component IBUFDS
+  port map (
+  	O => open,
+  	I => OSC_P,
+  	IB => OSC_N
+  );
   
   DDR3_VSEL <= 'Z';
   
